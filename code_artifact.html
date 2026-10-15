@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>台中推薦景點</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Noto Sans TC -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', '"Inter"', 'sans-serif'],
+                    },
+                    colors: {
+                        lavender: {
+                            50: '#fbf8ff',
+                            100: '#f5edff',
+                            200: '#ebd9fc',
+                            300: '#dcbcfa',
+                            400: '#c692f6',
+                            500: '#ae65ee',
+                            600: '#9741df',
+                            700: '#802fc2',
+                            800: '#6b299e',
+                            900: '#58247f',
+                            950: '#390f58',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; }
+        .glass-nav {
+            background: rgba(251, 248, 255, 0.85);
+            backdrop-filter: blur(16px);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(128, 47, 194, 0.75) 0%, rgba(88, 36, 127, 0.88) 100%), url('https://www.taiwanviptravel.com/articles/images/gaomei-wetland-titleImage.jpg') center/cover;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f5edff;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c692f6;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-lavender-50 via-white to-lavender-100/50 text-slate-700 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Header / Nav -->
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav border-b border-lavender-200/60 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo / Title -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-lavender-500 to-lavender-300 flex items-center justify-center text-white shadow-md shadow-lavender-400/30">
+                    <i class="fa-solid fa-sparkles text-xl"></i>
+                </div>
+                <span class="text-2xl font-black bg-gradient-to-r from-lavender-800 via-lavender-700 to-lavender-600 bg-clip-text text-transparent">台中推薦景點</span>
+            </div>
+            
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="#spots" class="text-slate-600 hover:text-lavender-700 font-semibold transition text-base">精選景點</a>
+                <button onclick="openMapModal()" class="flex items-center space-x-2 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-lavender-500 to-lavender-600 text-white font-bold hover:shadow-lg hover:shadow-lavender-400/40 transition transform hover:-translate-y-0.5">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <span>景點地圖</span>
+                </button>
+            </nav>
+
+            <!-- Mobile Nav Buttons -->
+            <div class="md:hidden flex items-center space-x-3">
+                <button onclick="openMapModal()" class="flex items-center space-x-1 px-3.5 py-2 rounded-xl bg-lavender-600 text-white font-bold text-sm shadow-md">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <span>景點地圖</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-36 pb-24 md:pt-48 md:pb-32 hero-gradient text-white overflow-hidden shadow-xl">
+        <div class="absolute inset-0 bg-lavender-950/20 backdrop-blur-[1px]"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight mb-8 drop-shadow-md">
+                台中推薦景點
+            </h1>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#spots" class="inline-flex items-center space-x-2 px-8 py-4 bg-white text-lavender-800 font-bold text-lg rounded-2xl shadow-xl hover:bg-lavender-50 transition transform hover:-translate-y-1">
+                    <span>探索景點</span>
+                    <i class="fa-solid fa-arrow-down animate-bounce"></i>
+                </a>
+                <button onclick="openMapModal()" class="inline-flex items-center space-x-2 px-8 py-4 bg-lavender-500/80 backdrop-blur-md text-white border border-white/30 font-bold text-lg rounded-2xl shadow-xl hover:bg-lavender-500 transition transform hover:-translate-y-1">
+                    <i class="fa-solid fa-map-marked-alt"></i>
+                    <span>開啟導覽地圖</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <main id="spots" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
+        <!-- Category Filter -->
+        <div class="flex flex-wrap items-center justify-center gap-3 mb-12">
+            <button onclick="filterCategory('全部')" id="btn-all" class="px-6 py-3 rounded-full text-base font-bold transition bg-lavender-600 text-white shadow-lg shadow-lavender-400/30">全部景點</button>
+            <button onclick="filterCategory('文青商圈')" id="btn-arts" class="px-6 py-3 rounded-full text-base font-bold transition bg-lavender-100/80 hover:bg-lavender-200 text-lavender-800">文青商圈</button>
+            <button onclick="filterCategory('打卡名所')" id="btn-photo" class="px-6 py-3 rounded-full text-base font-bold transition bg-lavender-100/80 hover:bg-lavender-200 text-lavender-800">打卡名所</button>
+            <button onclick="filterCategory('美食商圈')" id="btn-food" class="px-6 py-3 rounded-full text-base font-bold transition bg-lavender-100/80 hover:bg-lavender-200 text-lavender-800">美食商圈</button>
+            <button onclick="filterCategory('自然生態')" id="btn-nature" class="px-6 py-3 rounded-full text-base font-bold transition bg-lavender-100/80 hover:bg-lavender-200 text-lavender-800">自然生態</button>
+        </div>
+
+        <!-- Spots Cards Grid (Enlarged Images & Text) -->
+        <div id="spots-grid" class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <!-- Injected via JavaScript -->
+        </div>
+    </main>
+
+    <!-- Google My Maps Modal (Embed iFrame) -->
+    <div id="map-modal" class="fixed inset-0 z-50 bg-lavender-950/60 backdrop-blur-md hidden items-center justify-center p-4 sm:p-6 transition-all duration-300">
+        <div class="bg-white rounded-3xl max-w-4xl w-full shadow-2xl overflow-hidden border border-lavender-200 flex flex-col max-h-[90vh]">
+            <!-- Modal Header -->
+            <div class="p-5 sm:p-6 bg-gradient-to-r from-lavender-700 to-lavender-600 text-white flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center">
+                        <i class="fa-solid fa-map-location-dot text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold">台中熱門景點地圖</h3>
+                    </div>
+                </div>
+                <button onclick="closeMapModal()" class="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition focus:outline-none">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- iFrame Map Container -->
+            <div class="relative w-full h-[500px] bg-slate-100">
+                <iframe 
+                    src="https://www.google.com/maps/d/embed?mid=1BxRZ9mvEIkhnXE_qRye9fbI9MA7hDKE&ehbc=2E312F" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 bg-lavender-50 border-t border-lavender-100 text-center">
+                <button onclick="closeMapModal()" class="px-8 py-2.5 bg-lavender-600 hover:bg-lavender-700 text-white font-bold rounded-xl transition shadow-md">
+                    關閉地圖
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Spot Detail Modal -->
+    <div id="detail-modal" class="fixed inset-0 z-50 bg-lavender-950/60 backdrop-blur-md hidden items-center justify-center p-4 transition-all duration-300">
+        <div class="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl relative border border-lavender-100">
+            <button onclick="closeDetailModal()" class="absolute top-4 right-4 z-10 w-11 h-11 rounded-full bg-slate-900/60 hover:bg-slate-900 text-white flex items-center justify-center transition shadow-md">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div id="modal-body">
+                <!-- Content injected dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-300 py-12 border-t border-lavender-900/50">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center items-center space-x-2 text-lavender-300 text-xl font-bold mb-3">
+                <i class="fa-solid fa-sparkles"></i>
+                <span>台中推薦景點</span>
+            </div>
+            <p class="text-slate-500 text-sm">© 2026 台中浪漫淡紫景點指南. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Data and Interactivity -->
+    <script>
+        // 4 精選景點資料集
+        const spots = [
+            {
+                id: 'green-park',
+                name: '勤美誠品綠園道',
+                category: '文青商圈',
+                tag: '綠建築地標',
+                rating: 4.8,
+                reviews: 1240,
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMMLittZmeyjhn8TyNwjsdN7Bzx_uA-K28yvrKT8nGBNJj7GIuaF9YSNWV&s=10',
+                shortDesc: '勤美誠品綠園道是臺中西區的綠建築地標，由廢棄大樓改建而成，最大特色為融入10萬株植栽的內外垂直植生牆。',
+                fullDesc: '勤美誠品綠園道是臺中西區的綠建築地標，由廢棄大樓改建而成，最大特色為融入10萬株植栽的內外垂直植生牆。商場結合購物與自然，3樓設有中區最大的誠品書店，並引進眾多美食餐廳。其地理位置極佳，連通市民廣場、PARK2草悟廣場與科博館，是臺中融合文藝與休閒的核心商圈。',
+                address: '台中市西區公益路68號',
+                hours: '11:00 – 21:30',
+                mapUrl: 'https://www.google.com/maps/search/?api=1&query=勤美誠品綠園道'
+            },
+            {
+                id: 'miyahara',
+                name: '宮原眼科',
+                category: '打卡名所',
+                tag: '英式復古風',
+                rating: 4.7,
+                reviews: 2150,
+                image: 'https://gofunit.com/wp-content/uploads/2021/04/@shunsuke_twjp-1-850x638.jpg',
+                shortDesc: '建造於1927年的紅磚古蹟，內部打造如哈利波特霍格華茲般魔幻的挑高挑高書樓造景，是台中必訪的甜點名店。',
+                fullDesc: '宮原眼科原為日治時期眼科診所，經日出集團巧手打造後，搖身一變成為結合紅磚騎樓與挑高魔幻書樓風格的奢華甜點旗艦店。除了販售經典包裝鳳梨酥、牛軋糖外，其多達幾十種口味的特製冰淇淋更是吸引國內外遊客朝聖的大熱門產品。',
+                address: '台中市中區中山路20號',
+                hours: '10:00 – 21:00',
+                mapUrl: 'https://www.google.com/maps/search/?api=1&query=宮原眼科'
+            },
+            {
+                id: 'fengjia',
+                name: '逢甲夜市',
+                category: '美食商圈',
+                tag: '全台最大夜市',
+                rating: 4.6,
+                reviews: 3890,
+                image: 'https://photo.settour.com.tw/900x600/https://www.settour.com.tw/ss_img/info/location/TXG/G0/TXG0000083/TXG0000083_82085.jpg',
+                shortDesc: '全台灣規模最大、創新小吃發源地！從明倫蛋餅到官芝霖大腸包小腸，集結美食與時尚流行服飾。',
+                fullDesc: '逢甲夜市緊鄰逢甲大學，是台中乃至全台灣最著名的超大型夜市。這裡被譽為台灣創意小吃的搖籃，包含明倫蛋餅、官芝霖大腸包小腸、地瓜球等都是必吃美食。商圈內流行服飾與生活雜貨林立，人潮絡繹不絕。',
+                address: '台中市西屯區文華路',
+                hours: '16:00 – 01:00',
+                mapUrl: 'https://www.google.com/maps/search/?api=1&query=逢甲夜市'
+            },
+            {
+                id: 'gaomei',
+                name: '高美濕地',
+                category: '自然生態',
+                tag: '絕美夕陽地景',
+                rating: 4.9,
+                reviews: 1820,
+                image: 'https://www.taiwanviptravel.com/articles/images/gaomei-wetland-titleImage.jpg',
+                shortDesc: '擁有「天空之鏡」美譽的國際級濕地，設有木棧道供遊客走進夕陽與風車交織的夢幻景色中。',
+                fullDesc: '高美濕地擁有豐富的泥灘地生態與廣闊的天空景致，每當夕陽西下，平靜的水面 reflection 出唯美的天空之鏡景色。沿著木棧道漫步，可以近距離觀察招潮蟹、彈塗魚等豐富生態，是台中最浪漫浪漫的戶外打卡名所。',
+                address: '台中市清水區美堤街',
+                hours: '木棧道開放時間依潮汐調整 (約 09:00 - 18:00)',
+                mapUrl: 'https://www.google.com/maps/search/?api=1&query=高美濕地'
+            }
+        ];
+
+        let currentCategory = '全部';
+
+        // 渲染景點卡片
+        function renderSpots() {
+            const grid = document.getElementById('spots-grid');
+            grid.innerHTML = '';
+
+            const filtered = currentCategory === '全部' 
+                ? spots 
+                : spots.filter(s => s.category === currentCategory);
+
+            filtered.forEach(spot => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-3xl overflow-hidden shadow-lg shadow-lavender-200/40 border border-lavender-100 hover:shadow-2xl hover:shadow-lavender-300/50 transition duration-300 flex flex-col justify-between group";
+                
+                card.innerHTML = `
+                    <div>
+                        <!-- 大尺寸圖片容器 -->
+                        <div class="relative h-72 sm:h-80 w-full overflow-hidden bg-lavender-100">
+                            <img src="${spot.image}" alt="${spot.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/800x600/f5edff/6b299e?text=${encodeURIComponent(spot.name)}'">
+                            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-black text-lavender-800 shadow-sm">
+                                ${spot.tag}
+                            </div>
+                            <div class="absolute bottom-4 right-4 bg-slate-900/70 backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded-xl flex items-center space-x-1">
+                                <i class="fa-solid fa-star text-amber-400"></i>
+                                <span>${spot.rating} (${spot.reviews})</span>
+                            </div>
+                        </div>
+
+                        <!-- 大文字介紹內容 -->
+                        <div class="p-6 sm:p-8">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-bold text-lavender-600 bg-lavender-100/80 px-3 py-1 rounded-md">${spot.category}</span>
+                            </div>
+                            <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-800 mb-4 group-hover:text-lavender-700 transition">${spot.name}</h3>
+                            <p class="text-slate-600 text-base sm:text-lg leading-relaxed font-normal mb-6">${spot.shortDesc}</p>
+                        </div>
+                    </div>
+
+                    <!-- 操作按鈕 -->
+                    <div class="px-6 sm:px-8 pb-6 sm:pb-8 pt-0 flex items-center justify-between gap-3">
+                        <button onclick="openDetailModal('${spot.id}')" class="flex-1 py-3.5 bg-lavender-100 hover:bg-lavender-200 text-lavender-800 font-bold rounded-2xl transition text-base flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span>詳細介紹</span>
+                        </button>
+                        <a href="${spot.mapUrl}" target="_blank" class="flex-1 py-3.5 bg-gradient-to-r from-lavender-600 to-lavender-700 hover:from-lavender-700 hover:to-lavender-800 text-white font-bold rounded-2xl transition text-base flex items-center justify-center space-x-2 shadow-md shadow-lavender-400/30">
+                            <i class="fa-solid fa-diamond-turn-right"></i>
+                            <span>開啟地圖</span>
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // 分類篩選
+        function filterCategory(cat) {
+            currentCategory = cat;
+            const buttons = [
+                { id: 'btn-all', name: '全部' },
+                { id: 'btn-arts', name: '文青商圈' },
+                { id: 'btn-photo', name: '打卡名所' },
+                { id: 'btn-food', name: '美食商圈' },
+                { id: 'btn-nature', name: '自然生態' }
+            ];
+
+            buttons.forEach(b => {
+                const el = document.getElementById(b.id);
+                if (!el) return;
+                if (b.name === cat) {
+                    el.className = "px-6 py-3 rounded-full text-base font-bold transition bg-lavender-600 text-white shadow-lg shadow-lavender-400/30";
+                } else {
+                    el.className = "px-6 py-3 rounded-full text-base font-bold transition bg-lavender-100/80 hover:bg-lavender-200 text-lavender-800";
+                }
+            });
+
+            renderSpots();
+        }
+
+        // 開啟 / 關閉地圖彈窗 (Embedded Google My Maps)
+        function openMapModal() {
+            document.getElementById('map-modal').classList.remove('hidden');
+            document.getElementById('map-modal').classList.add('flex');
+        }
+
+        function closeMapModal() {
+            document.getElementById('map-modal').classList.add('hidden');
+            document.getElementById('map-modal').classList.remove('flex');
+        }
+
+        // 開啟詳細資料彈窗
+        function openDetailModal(id) {
+            const spot = spots.find(s => s.id === id);
+            if (!spot) return;
+
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = `
+                <div class="relative h-80 sm:h-96 w-full">
+                    <img src="${spot.image}" alt="${spot.name}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 right-6 text-white">
+                        <span class="px-3 py-1 rounded-md bg-lavender-500 text-white text-xs font-bold mb-2 inline-block">${spot.category}</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold mb-1">${spot.name}</h2>
+                        <p class="text-slate-200 text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-star text-amber-400"></i> ${spot.rating} (${spot.reviews} 則評價)
+                        </p>
+                    </div>
+                </div>
+                <div class="p-6 sm:p-8 space-y-6">
+                    <div>
+                        <h4 class="text-lg font-bold text-slate-800 mb-2 border-l-4 border-lavender-500 pl-3">景點簡介</h4>
+                        <p class="text-slate-600 text-base sm:text-lg leading-relaxed">${spot.fullDesc}</p>
+                    </div>
+
+                    <div class="bg-lavender-50/80 rounded-2xl p-5 space-y-3 text-base text-slate-700 border border-lavender-100">
+                        <div class="flex items-start space-x-3">
+                            <i class="fa-solid fa-location-dot text-lavender-600 mt-1"></i>
+                            <div>
+                                <strong class="block text-slate-900 font-bold">景點地址：</strong>
+                                <span>${spot.address}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa-solid fa-clock text-lavender-600 mt-1"></i>
+                            <div>
+                                <strong class="block text-slate-900 font-bold">開放時間：</strong>
+                                <span>${spot.hours}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex justify-end">
+                        <a href="${spot.mapUrl}" target="_blank" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-lavender-600 to-lavender-700 hover:from-lavender-700 hover:to-lavender-800 text-white font-bold rounded-2xl text-center shadow-lg shadow-lavender-400/30 transition flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-diamond-turn-right"></i>
+                            <span>開啟 Google 地圖導航</span>
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('detail-modal').classList.remove('hidden');
+            document.getElementById('detail-modal').classList.add('flex');
+        }
+
+        function closeDetailModal() {
+            document.getElementById('detail-modal').classList.add('hidden');
+            document.getElementById('detail-modal').classList.remove('flex');
+        }
+
+        // 初始化
+        window.onload = function() {
+            renderSpots();
+        };
+    </script>
+</body>
+</html>
